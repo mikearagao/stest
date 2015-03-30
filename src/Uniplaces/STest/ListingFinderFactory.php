@@ -1,6 +1,8 @@
 <?php
 
 namespace Uniplaces\STest;
+use Uniplaces\STest\Searchers\SimpleSearcher;
+use Uniplaces\STest\Searchers\AdvancedSearcher;
 
 /**
  * ListingFinderFactory
@@ -12,7 +14,7 @@ abstract class ListingFinderFactory
      */
     public static function createSimple()
     {
-        return new ListingFinder('simple');
+        return new ListingFinder(new SimpleSearcher());
     }
 
     /**
@@ -20,6 +22,6 @@ abstract class ListingFinderFactory
      */
     public static function createAdvanced()
     {
-        return new ListingFinder('advanced');
+        return new ListingFinder(new AdvancedSearcher());
     }
 }
