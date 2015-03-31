@@ -4,9 +4,15 @@ namespace Uniplaces\STest\Searchers;
 
 class Searcher
 {
+    /**
+     * @var array
+     */
+    protected $filters;
+
     public function __construct()
     {
     	# code...
+        $this->filters = array();
     }
 
 	/**

@@ -6,6 +6,9 @@ use Uniplaces\STest\Listing\Listing;
 use Uniplaces\STest\Requirement\StayTime;
 use Uniplaces\STest\Requirement\TenantTypes;
 use Uniplaces\STest\Searchers\Searcher;
+use Uniplaces\STest\Searchers\Filters\CityFilter;
+use Uniplaces\STest\Searchers\Filters\AvailabilityFilter;
+use Uniplaces\STest\Searchers\Filters\TenantFilter;
 use DateTime;
 
 /**
@@ -17,6 +20,10 @@ class SimpleSearcher extends Searcher
 	public function __construct()
 	{
 		parent::__construct();
+
+        $this->filters[] = new CityFilter();
+        $this->filters[] = new AvailabilityFilter();
+        $this->filters[] = new TenantFilter();
 	}
 
 	/**
@@ -30,29 +37,10 @@ class SimpleSearcher extends Searcher
         $matchListings = array();
 
         foreach ($listings as $listing) {
-            if ($listing->getLocalization()->getCity() != $search['city']) {
-                continue;
-            }
-
-            $stayTime = $listing->getRequirements()->getStayTime();
-            if (isset($search['start_date']) && $stayTime instanceof StayTime) {
-                /** @var DateTime $startDate */
-                $startDate = $search['start_date'];
-                /** @var DateTime $endDate */
-                $endDate = $search['end_date'];
-
-                $interval = $endDate->diff($startDate);
-                $days = (int)$interval->format('%a');
-
-                if ($days < $stayTime->getMin() || $days > $stayTime->getMax()) {
-                    continue;
+            foreach ($this->filters as $filter){
+                if($filter->matches($listing, $search)) {
+                    continue 2;
                 }
-            }
-
-
-            $tenantTypes = $listing->getRequirements()->getTenantTypes();
-            if ($tenantTypes instanceof TenantTypes && !in_array($search['occupation'], $tenantTypes->toArray())) {
-                continue;
             }
 
             $matchListings[] = $listing;
