@@ -22,11 +22,11 @@ class AvailabilityFilter extends Filter
         $result = false;
 
         $stayTime = $listing->getRequirements()->getStayTime();
-        if (isset($search['start_date']) && $stayTime instanceof StayTime) {
+        if (isset($search[CommonConstants::START_DATE]) && $stayTime instanceof StayTime) {
             /** @var DateTime $startDate */
-            $startDate = $search['start_date'];
+            $startDate = $search[CommonConstants::START_DATE];
             /** @var DateTime $endDate */
-            $endDate = $search['end_date'];
+            $endDate = $search[CommonConstants::END_DATE];
 
             $interval = $endDate->diff($startDate);
             $days = (int)$interval->format('%a');

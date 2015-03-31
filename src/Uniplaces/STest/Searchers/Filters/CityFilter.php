@@ -20,7 +20,7 @@ class CityFilter extends Filter
     {
         $result = false;
 
-        if ($listing->getLocalization()->getCity() != $search['city']) {
+        if ($listing->getLocalization()->getCity() != $search[CommonConstants::CITY]) {
             $result = true;
         }
         

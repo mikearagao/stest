@@ -22,7 +22,7 @@ class TenantFilter extends Filter
         $result = false;
 
         $tenantTypes = $listing->getRequirements()->getTenantTypes();
-        if ($tenantTypes instanceof TenantTypes && !in_array($search['occupation'], $tenantTypes->toArray())) {
+        if ($tenantTypes instanceof TenantTypes && !in_array($search[CommonConstants::OCCUPATION], $tenantTypes->toArray())) {
             $result = true;
         }
 

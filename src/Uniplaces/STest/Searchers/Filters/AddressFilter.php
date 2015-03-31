@@ -20,9 +20,9 @@ class AddressFilter extends Filter
     {
         $result = false;
 
-        if (isset($search['address'])) {
+        if (isset($search[CommonConstants::ADDRESS])) {
             $listingAddress = strtolower(trim($listing->getLocalization()->getAddress()));
-            $address = strtolower(trim($search['address']));
+            $address = strtolower(trim($search[CommonConstants::ADDRESS]));
 
             if (levenshtein($listingAddress, $address) > 5) {
                 $result = true;

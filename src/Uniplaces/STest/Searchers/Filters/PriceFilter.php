@@ -20,10 +20,10 @@ class PriceFilter extends Filter
     {
         $result = false;
 
-        if (isset($search['price'])) {
+        if (isset($search[CommonConstants::PRICE])) {
             $listingPrice = $listing->getPrice();
-            $min = isset($search['price']['min']) ? $search['price']['min'] : null;
-            $max = isset($search['price']['max']) ? $search['price']['max'] : null;
+            $min = isset($search[CommonConstants::PRICE][CommonConstants::MIN]) ? $search[CommonConstants::PRICE][CommonConstants::MIN] : null;
+            $max = isset($search[CommonConstants::PRICE][CommonConstants::MAX]) ? $search[CommonConstants::PRICE][CommonConstants::MAX] : null;
 
             if (($min !== null && $min > $listingPrice) || ($max !== null && $max < $listingPrice)) {
                 $result = true;
